@@ -1,0 +1,16 @@
+#!/bin/sh
+mdev -s
+mount -t proc none /proc
+stty -opost
+echo 0 > /proc/sys/kernel/kptr_restrict
+echo 0 > /proc/sys/kernel/dmesg_restrict
+
+insmod /root/driver.ko
+mknod -m 666 /dev/kbuf c `grep kbuf /proc/devices | awk '{print $1;}'` 0
+
+echo -e "\nBoot took $(cut -d' ' -f1 /proc/uptime) seconds\n"
+echo "[ kbuf - Beginners CTF 2024 ]"
+setsid cttyhack setuidgid 1337 sh
+
+umount /proc
+poweroff -d 0 -f

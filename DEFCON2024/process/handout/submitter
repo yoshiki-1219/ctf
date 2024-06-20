@@ -1,0 +1,5 @@
+#!/bin/bash
+# このスクリプトは "Hello, world!" と表示します。
+
+echo "Hello, world!"
+
